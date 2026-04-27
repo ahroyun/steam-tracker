@@ -1,0 +1,38 @@
+name: Steam 차트 추적기
+
+on:
+  schedule:
+    # 매일 한국시간 오전 9시 (UTC 00:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # 수동 실행 버튼도 활성화
+
+permissions:
+  contents: write   # Excel 파일을 저장소에 커밋하기 위해 필요
+
+jobs:
+  track-steam-charts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 패키지 설치
+        run: pip install -r requirements.txt --quiet
+
+      - name: Steam 차트 데이터 수집
+        run: python steam_chart_tracker.py
+
+      - name: Excel 파일 저장소에 커밋
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add steam_chart_tracker.xlsx
+          git diff --staged --quiet || git commit -m "📊 Steam 차트 업데이트: $(date +'%Y-%m-%d')"
+          git push
