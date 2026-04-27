@@ -1,0 +1,507 @@
+{
+  "updated": "2026-04-27",
+  "today_chart": [
+    {
+      "rank": 1,
+      "appid": 730,
+      "name": "Counter-Strike: Global Offensive",
+      "ccu": 1013936,
+      "review_score_pct": 86.7,
+      "total_reviews": 8815087,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 2,
+      "appid": 1172470,
+      "name": "Apex Legends",
+      "ccu": 124262,
+      "review_score_pct": 67.1,
+      "total_reviews": 994979,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 3,
+      "appid": 578080,
+      "name": "PUBG: BATTLEGROUNDS",
+      "ccu": 314682,
+      "review_score_pct": 59.4,
+      "total_reviews": 2557944,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 4,
+      "appid": 1623730,
+      "name": "Palworld",
+      "ccu": 18028,
+      "review_score_pct": 94.1,
+      "total_reviews": 380709,
+      "price_krw": 32000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 5,
+      "appid": 440,
+      "name": "Team Fortress 2",
+      "ccu": 43819,
+      "review_score_pct": 89.9,
+      "total_reviews": 1161472,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 6,
+      "appid": 1938090,
+      "name": "Call of Duty: Modern Warfare II",
+      "ccu": 67419,
+      "review_score_pct": 58.8,
+      "total_reviews": 714114,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 7,
+      "appid": 1063730,
+      "name": "New World: Aeternum",
+      "ccu": 5583,
+      "review_score_pct": 68.6,
+      "total_reviews": 286878,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 8,
+      "appid": 2358720,
+      "name": "Black Myth: Wukong",
+      "ccu": 15004,
+      "review_score_pct": 96.7,
+      "total_reviews": 1150098,
+      "price_krw": 64800.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 9,
+      "appid": 271590,
+      "name": "Grand Theft Auto V Legacy",
+      "ccu": 67851,
+      "review_score_pct": 87.4,
+      "total_reviews": 1990556,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 10,
+      "appid": 550,
+      "name": "Left 4 Dead 2",
+      "ccu": 25122,
+      "review_score_pct": 97.5,
+      "total_reviews": 963983,
+      "price_krw": 11000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 11,
+      "appid": 304930,
+      "name": "Unturned",
+      "ccu": 10408,
+      "review_score_pct": 91.2,
+      "total_reviews": 555368,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 12,
+      "appid": 1599340,
+      "name": "Lost Ark",
+      "ccu": 17355,
+      "review_score_pct": 71.0,
+      "total_reviews": 202021,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 13,
+      "appid": 236390,
+      "name": "War Thunder",
+      "ccu": 50478,
+      "review_score_pct": 64.0,
+      "total_reviews": 757086,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 14,
+      "appid": 2246340,
+      "name": "Monster Hunter Wilds",
+      "ccu": 12494,
+      "review_score_pct": 58.3,
+      "total_reviews": 218415,
+      "price_krw": 84800.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 15,
+      "appid": 553850,
+      "name": "HELLDIVERS 2",
+      "ccu": 53399,
+      "review_score_pct": 76.2,
+      "total_reviews": 1017635,
+      "price_krw": 44800.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 16,
+      "appid": 230410,
+      "name": "Warframe",
+      "ccu": 36195,
+      "review_score_pct": 87.1,
+      "total_reviews": 626503,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 17,
+      "appid": 1245620,
+      "name": "ELDEN RING",
+      "ccu": 29529,
+      "review_score_pct": 92.9,
+      "total_reviews": 1056677,
+      "price_krw": 64800.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 18,
+      "appid": 105600,
+      "name": "Terraria",
+      "ccu": 24580,
+      "review_score_pct": 97.5,
+      "total_reviews": 1409473,
+      "price_krw": 11000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 19,
+      "appid": 2694490,
+      "name": "Path of Exile 2",
+      "ccu": 16727,
+      "review_score_pct": 70.1,
+      "total_reviews": 169021,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 20,
+      "appid": 431960,
+      "name": "Wallpaper Engine",
+      "ccu": 91184,
+      "review_score_pct": 98.0,
+      "total_reviews": 894458,
+      "price_krw": 5600.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 21,
+      "appid": 1086940,
+      "name": "Baldur's Gate 3",
+      "ccu": 54771,
+      "review_score_pct": 96.8,
+      "total_reviews": 760662,
+      "price_krw": 66000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 22,
+      "appid": 291550,
+      "name": "Brawlhalla",
+      "ccu": 14169,
+      "review_score_pct": 81.5,
+      "total_reviews": 386456,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 23,
+      "appid": 4000,
+      "name": "Garry's Mod",
+      "ccu": 18400,
+      "review_score_pct": 96.8,
+      "total_reviews": 1159707,
+      "price_krw": 5250.0,
+      "discount_pct": 50
+    },
+    {
+      "rank": 24,
+      "appid": 1085660,
+      "name": "Destiny 2",
+      "ccu": 24619,
+      "review_score_pct": 79.6,
+      "total_reviews": 625616,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 25,
+      "appid": 359550,
+      "name": "Tom Clancy's Rainbow Six Siege",
+      "ccu": 51847,
+      "review_score_pct": 83.9,
+      "total_reviews": 1398584,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 26,
+      "appid": 252490,
+      "name": "Rust",
+      "ccu": 143870,
+      "review_score_pct": 87.2,
+      "total_reviews": 1227784,
+      "price_krw": 42000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 27,
+      "appid": 552990,
+      "name": "World of Warships",
+      "ccu": 8518,
+      "review_score_pct": 77.0,
+      "total_reviews": 146552,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 28,
+      "appid": 346110,
+      "name": "ARK: Survival Evolved",
+      "ccu": 22170,
+      "review_score_pct": 83.8,
+      "total_reviews": 730170,
+      "price_krw": 16500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 29,
+      "appid": 413150,
+      "name": "Stardew Valley",
+      "ccu": 50662,
+      "review_score_pct": 98.4,
+      "total_reviews": 886195,
+      "price_krw": 16000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 30,
+      "appid": 242760,
+      "name": "The Forest",
+      "ccu": 2892,
+      "review_score_pct": 95.5,
+      "total_reviews": 627791,
+      "price_krw": 20500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 31,
+      "appid": 1491000,
+      "name": "War Robots: Frontiers",
+      "ccu": 256,
+      "review_score_pct": 64.1,
+      "total_reviews": 3082,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 32,
+      "appid": 238960,
+      "name": "Path of Exile",
+      "ccu": 4694,
+      "review_score_pct": 89.3,
+      "total_reviews": 235091,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 33,
+      "appid": 218620,
+      "name": "PAYDAY 2",
+      "ccu": 27254,
+      "review_score_pct": 89.6,
+      "total_reviews": 663082,
+      "price_krw": 10700.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 34,
+      "appid": 291480,
+      "name": "Warface: Clutch",
+      "ccu": 270,
+      "review_score_pct": 66.4,
+      "total_reviews": 82197,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 35,
+      "appid": 901583,
+      "name": "Grand Theft Auto IV: Complete Edition",
+      "ccu": 0,
+      "review_score_pct": 82.5,
+      "total_reviews": 175272,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 36,
+      "appid": 899770,
+      "name": "Last Epoch",
+      "ccu": 5831,
+      "review_score_pct": 79.6,
+      "total_reviews": 110623,
+      "price_krw": 37500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 37,
+      "appid": 340,
+      "name": "Half-Life 2: Lost Coast",
+      "ccu": 2,
+      "review_score_pct": 89.3,
+      "total_reviews": 13686,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 38,
+      "appid": 1091500,
+      "name": "Cyberpunk 2077",
+      "ccu": 22265,
+      "review_score_pct": 84.4,
+      "total_reviews": 844921,
+      "price_krw": 23100.0,
+      "discount_pct": 65
+    },
+    {
+      "rank": 39,
+      "appid": 381210,
+      "name": "Dead by Daylight",
+      "ccu": 44886,
+      "review_score_pct": 79.1,
+      "total_reviews": 797216,
+      "price_krw": 8600.0,
+      "discount_pct": 60
+    },
+    {
+      "rank": 40,
+      "appid": 990080,
+      "name": "Hogwarts Legacy",
+      "ccu": 5716,
+      "review_score_pct": 90.2,
+      "total_reviews": 321395,
+      "price_krw": 79800.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 41,
+      "appid": 438100,
+      "name": "VRChat",
+      "ccu": 34699,
+      "review_score_pct": 75.6,
+      "total_reviews": 240355,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 42,
+      "appid": 292030,
+      "name": "The Witcher 3: Wild Hunt",
+      "ccu": 15893,
+      "review_score_pct": 96.1,
+      "total_reviews": 835349,
+      "price_krw": 6960.0,
+      "discount_pct": 80
+    },
+    {
+      "rank": 43,
+      "appid": 945360,
+      "name": "Among Us",
+      "ccu": 3832,
+      "review_score_pct": 91.9,
+      "total_reviews": 700785,
+      "price_krw": 5500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 44,
+      "appid": 1097150,
+      "name": "Fall Guys: Ultimate Knockout",
+      "ccu": 664,
+      "review_score_pct": 81.3,
+      "total_reviews": 473743,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 45,
+      "appid": 49520,
+      "name": "Borderlands 2",
+      "ccu": 8551,
+      "review_score_pct": 92.4,
+      "total_reviews": 295218,
+      "price_krw": 9460.0,
+      "discount_pct": 78
+    },
+    {
+      "rank": 46,
+      "appid": 227300,
+      "name": "Euro Truck Simulator 2",
+      "ccu": 17281,
+      "review_score_pct": 97.4,
+      "total_reviews": 867404,
+      "price_krw": 24800.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 47,
+      "appid": 892970,
+      "name": "Valheim",
+      "ccu": 14439,
+      "review_score_pct": 94.3,
+      "total_reviews": 499828,
+      "price_krw": 11000.0,
+      "discount_pct": 50
+    },
+    {
+      "rank": 48,
+      "appid": 739630,
+      "name": "Phasmophobia",
+      "ccu": 9978,
+      "review_score_pct": 95.8,
+      "total_reviews": 768779,
+      "price_krw": 21500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 49,
+      "appid": 444090,
+      "name": "Paladins",
+      "ccu": 1028,
+      "review_score_pct": 85.0,
+      "total_reviews": 346404,
+      "price_krw": NaN,
+      "discount_pct": 0
+    },
+    {
+      "rank": 50,
+      "appid": 1203220,
+      "name": "NARAKA: BLADEPOINT",
+      "ccu": 66954,
+      "review_score_pct": 69.5,
+      "total_reviews": 324927,
+      "price_krw": NaN,
+      "discount_pct": 0
+    }
+  ],
+  "longrun_2w": [],
+  "longrun_4w": []
+}
