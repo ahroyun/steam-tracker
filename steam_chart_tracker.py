@@ -301,7 +301,8 @@ def write_json(today_df, longrun_2w_df, longrun_4w_df):
     def to_records(df):
         if df.empty:
             return []
-        return df.where(pd.notnull(df), None).to_dict(orient="records")
+        # pandas to_json이 NaN → null 변환을 올바르게 처리함
+        return json.loads(df.to_json(orient="records", force_ascii=False))
 
     data = {
         "updated":    date.today().isoformat(),
