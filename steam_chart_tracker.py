@@ -21,10 +21,12 @@ from openpyxl.utils import get_column_letter
 from datetime import date
 import time
 import os
+import json
 
 # ── 설정 ──────────────────────────────────────────────────────────────────────
 SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
 EXCEL_PATH   = os.path.join(SCRIPT_DIR, "steam_chart_tracker.xlsx")
+JSON_PATH    = os.path.join(SCRIPT_DIR, "docs", "data.json")
 TOP_N        = 50   # 상위 50개 게임 추적
 LONGRUN_2W   = 14   # 2주(14일) 이상
 LONGRUN_4W   = 28   # 4주(28일) 이상
@@ -293,6 +295,26 @@ def build_excel(all_df, today_df, longrun_2w_df, longrun_4w_df):
     print(f"✔ Excel 저장: {EXCEL_PATH}")
 
 
+# ── JSON 출력 (GitHub Pages용) ───────────────────────────────────────────────
+
+def write_json(today_df, longrun_2w_df, longrun_4w_df):
+    def to_records(df):
+        if df.empty:
+            return []
+        return df.where(pd.notnull(df), None).to_dict(orient="records")
+
+    data = {
+        "updated":    date.today().isoformat(),
+        "today_chart": to_records(today_df[["rank","appid","name","ccu","review_score_pct","total_reviews","price_krw","discount_pct"]]),
+        "longrun_2w": to_records(longrun_2w_df),
+        "longrun_4w": to_records(longrun_4w_df),
+    }
+    os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
+    with open(JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"✔ JSON 저장: {JSON_PATH}")
+
+
 # ── 메인 ──────────────────────────────────────────────────────────────────────
 
 def load_existing(path):
@@ -326,6 +348,7 @@ def main():
     print(f"▶ 4주+ 롱런 게임: {len(longrun_4w)}개")
 
     build_excel(all_df, today_df, longrun_2w, longrun_4w)
+    write_json(today_df, longrun_2w, longrun_4w)
     print("  완료!\n")
 
 
