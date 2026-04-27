@@ -5,16 +5,17 @@ Steam 인기 차트 자동 추적기
 
 추적 지표:
   - 동시 접속자 수 (CCU)
-  - 2주 플레이어 수 (판매 순위 대용)
   - 긍정 리뷰 비율 (%)
   - 현재 가격 및 할인율
 
-롱런 기준: 28일(4주) 이상 상위 50위 유지
+롱런 기준:
+  - 2주(14일) 이상 상위 50위 유지
+  - 4주(28일) 이상 상위 50위 유지
 """
 
 import requests
 import pandas as pd
-from openpyxl import load_workbook, Workbook
+from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils import get_column_letter
 from datetime import date
@@ -24,8 +25,9 @@ import os
 # ── 설정 ──────────────────────────────────────────────────────────────────────
 SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
 EXCEL_PATH   = os.path.join(SCRIPT_DIR, "steam_chart_tracker.xlsx")
-TOP_N        = 50    # 상위 50개 게임 추적
-LONGRUN_DAYS = 28    # 4주(28일) 이상 = 롱런 게임
+TOP_N        = 50   # 상위 50개 게임 추적
+LONGRUN_2W   = 14   # 2주(14일) 이상
+LONGRUN_4W   = 28   # 4주(28일) 이상
 
 
 # ── 데이터 수집 ───────────────────────────────────────────────────────────────
@@ -45,13 +47,12 @@ def fetch_steamspy_top100():
         review_pct = round(pos / total * 100, 1) if total > 0 else 0
 
         games.append({
-            "rank":           rank,
-            "appid":          int(appid),
-            "name":           info.get("name", ""),
-            "ccu":            info.get("ccu", 0) or 0,
-            "players_2weeks": info.get("players_2weeks", 0) or 0,
+            "rank":             rank,
+            "appid":            int(appid),
+            "name":             info.get("name", ""),
+            "ccu":              info.get("ccu", 0) or 0,
             "review_score_pct": review_pct,
-            "total_reviews":  total,
+            "total_reviews":    total,
             "positive_reviews": pos,
         })
 
@@ -98,7 +99,6 @@ def collect_today_data():
             "appid":              g["appid"],
             "name":               g["name"],
             "ccu":                g["ccu"],
-            "players_2weeks":     g["players_2weeks"],
             "review_score_pct":   g["review_score_pct"],
             "total_reviews":      g["total_reviews"],
             "positive_reviews":   g["positive_reviews"],
@@ -112,8 +112,8 @@ def collect_today_data():
 
 # ── 분석 ──────────────────────────────────────────────────────────────────────
 
-def analyze_longrun(df):
-    """4주(28일) 이상 상위 50위를 유지한 게임 집계"""
+def analyze_longrun(df, min_days):
+    """min_days 이상 상위 50위를 유지한 게임 집계"""
     if df.empty:
         return pd.DataFrame()
 
@@ -121,40 +121,57 @@ def analyze_longrun(df):
     df["date"] = pd.to_datetime(df["date"])
 
     stats = df.groupby(["appid", "name"]).agg(
-        days_in_top        = ("date",             "nunique"),
-        avg_rank           = ("rank",             "mean"),
-        best_rank          = ("rank",             "min"),
-        avg_ccu            = ("ccu",              "mean"),
-        latest_ccu         = ("ccu",              "last"),
-        avg_review_score   = ("review_score_pct", "mean"),
-        latest_review_score= ("review_score_pct", "last"),
-        total_reviews      = ("total_reviews",    "last"),
-        latest_price       = ("price_krw",        "last"),
-        max_discount       = ("discount_pct",     "max"),
-        first_seen         = ("date",             "min"),
-        last_seen          = ("date",             "max"),
+        days_in_top         = ("date",             "nunique"),
+        avg_rank            = ("rank",             "mean"),
+        best_rank           = ("rank",             "min"),
+        avg_ccu             = ("ccu",              "mean"),
+        latest_ccu          = ("ccu",              "last"),
+        avg_review_score    = ("review_score_pct", "mean"),
+        latest_review_score = ("review_score_pct", "last"),
+        total_reviews       = ("total_reviews",    "last"),
+        latest_price        = ("price_krw",        "last"),
+        max_discount        = ("discount_pct",     "max"),
+        first_seen          = ("date",             "min"),
+        last_seen           = ("date",             "max"),
     ).reset_index()
 
-    longrun = stats[stats["days_in_top"] >= LONGRUN_DAYS].copy()
-    longrun.sort_values("days_in_top", ascending=False, inplace=True)
+    result = stats[stats["days_in_top"] >= min_days].copy()
+    result.sort_values("days_in_top", ascending=False, inplace=True)
 
-    longrun["avg_rank"]         = longrun["avg_rank"].round(1)
-    longrun["avg_ccu"]          = longrun["avg_ccu"].round(0).astype(int)
-    longrun["avg_review_score"] = longrun["avg_review_score"].round(1)
-    longrun["first_seen"]       = longrun["first_seen"].dt.strftime("%Y-%m-%d")
-    longrun["last_seen"]        = longrun["last_seen"].dt.strftime("%Y-%m-%d")
+    result["avg_rank"]         = result["avg_rank"].round(1)
+    result["avg_ccu"]          = result["avg_ccu"].round(0).astype(int)
+    result["avg_review_score"] = result["avg_review_score"].round(1)
+    result["first_seen"]       = result["first_seen"].dt.strftime("%Y-%m-%d")
+    result["last_seen"]        = result["last_seen"].dt.strftime("%Y-%m-%d")
 
-    return longrun
+    return result
 
 
 # ── Excel 출력 ────────────────────────────────────────────────────────────────
 
-HDR_FILL = PatternFill("solid", start_color="1F4E79")   # 진한 남색
-HDR_FONT = Font(bold=True, color="FFFFFF", size=10)
-ALT_FILL = PatternFill("solid", start_color="EBF3FB")   # 연한 파랑
-DIS_FILL = PatternFill("solid", start_color="C6EFCE")   # 연한 초록 (할인)
-LRN_FILL = PatternFill("solid", start_color="FFFACD")   # 연한 황금 (롱런)
-CENTER   = Alignment(horizontal="center", vertical="center")
+HDR_FILL  = PatternFill("solid", start_color="1F4E79")  # 진한 남색
+HDR_FONT  = Font(bold=True, color="FFFFFF", size=10)
+ALT_FILL  = PatternFill("solid", start_color="EBF3FB")  # 연한 파랑
+DIS_FILL  = PatternFill("solid", start_color="C6EFCE")  # 연한 초록 (할인)
+LRN2_FILL = PatternFill("solid", start_color="FFF3CD")  # 연한 노랑 (2주+)
+LRN4_FILL = PatternFill("solid", start_color="FFD700")  # 골드 (4주+)
+CENTER    = Alignment(horizontal="center", vertical="center")
+
+L_COLS = {
+    "name":                "게임명",
+    "days_in_top":         "유지 일수",
+    "avg_rank":            "평균 순위",
+    "best_rank":           "최고 순위",
+    "avg_ccu":             "평균 동접",
+    "latest_ccu":          "최근 동접",
+    "avg_review_score":    "평균 긍정리뷰(%)",
+    "latest_review_score": "최근 긍정리뷰(%)",
+    "total_reviews":       "총 리뷰수",
+    "latest_price":        "현재 가격(₩)",
+    "max_discount":        "최대 할인율(%)",
+    "first_seen":          "첫 관측일",
+    "last_seen":           "최근 관측일",
+}
 
 
 def _style_header(ws, row, ncols):
@@ -170,7 +187,32 @@ def _set_col_widths(ws, widths):
         ws.column_dimensions[get_column_letter(i)].width = w
 
 
-def build_excel(all_df, today_df, longrun_df):
+def _write_longrun_sheet(ws, title, longrun_df, row_fill, min_days):
+    ws["A1"] = title
+    ws["A1"].font = Font(bold=True, size=13, color="B8860B")
+    ws.append([])
+
+    ws.append(list(L_COLS.values()))
+    _style_header(ws, 3, len(L_COLS))
+
+    if not longrun_df.empty:
+        for ri, row in enumerate(longrun_df.itertuples(index=False), 4):
+            for ci, k in enumerate(L_COLS.keys(), 1):
+                ws.cell(ri, ci, value=getattr(row, k, None))
+            for ci in range(1, len(L_COLS) + 1):
+                ws.cell(ri, ci).fill = row_fill
+    else:
+        ws["A4"] = (
+            f"아직 {min_days}일 분량의 데이터가 쌓이지 않았습니다. "
+            "매일 자동 수집이 진행되면 이 시트가 채워집니다."
+        )
+        ws["A4"].font = Font(italic=True, color="888888")
+
+    _set_col_widths(ws, [36, 10, 10, 10, 12, 12, 16, 16, 12, 14, 14, 14, 14])
+    ws.freeze_panes = "A4"
+
+
+def build_excel(all_df, today_df, longrun_2w_df, longrun_4w_df):
     wb = Workbook()
 
     # ── 시트 1: 일별 스냅샷 ─────────────────────────────────────────────────
@@ -183,7 +225,6 @@ def build_excel(all_df, today_df, longrun_df):
         "appid":              "AppID",
         "name":               "게임명",
         "ccu":                "동시접속자",
-        "players_2weeks":     "2주 플레이어",
         "review_score_pct":   "긍정리뷰(%)",
         "total_reviews":      "총 리뷰수",
         "positive_reviews":   "긍정리뷰수",
@@ -202,18 +243,17 @@ def build_excel(all_df, today_df, longrun_df):
             for ci in range(1, len(keys) + 1):
                 ws1.cell(ri, ci).fill = ALT_FILL
 
-    _set_col_widths(ws1, [12, 5, 10, 36, 12, 14, 12, 12, 12, 10, 10, 10])
+    _set_col_widths(ws1, [12, 5, 10, 36, 12, 12, 12, 12, 10, 10, 10])
     ws1.freeze_panes = "A2"
 
     # ── 시트 2: 오늘의 차트 ─────────────────────────────────────────────────
     ws2 = wb.create_sheet("오늘의 차트")
-    title2 = f"Steam 인기 차트 — {date.today().isoformat()}"
-    ws2["A1"] = title2
+    ws2["A1"] = f"Steam 인기 차트 — {date.today().isoformat()}"
     ws2["A1"].font = Font(bold=True, size=13, color="1F4E79")
     ws2.append([])
 
-    T_COLS = ["순위", "게임명", "동시접속자", "2주 플레이어", "긍정리뷰(%)", "총 리뷰수", "가격(₩)", "할인율(%)"]
-    T_KEYS = ["rank", "name", "ccu", "players_2weeks", "review_score_pct", "total_reviews", "price_krw", "discount_pct"]
+    T_COLS = ["순위", "게임명", "동시접속자", "긍정리뷰(%)", "총 리뷰수", "가격(₩)", "할인율(%)"]
+    T_KEYS = ["rank", "name", "ccu", "review_score_pct", "total_reviews", "price_krw", "discount_pct"]
     ws2.append(T_COLS)
     _style_header(ws2, 3, len(T_COLS))
 
@@ -226,49 +266,28 @@ def build_excel(all_df, today_df, longrun_df):
             for ci in range(1, len(T_KEYS) + 1):
                 ws2.cell(ri, ci).fill = base_fill
 
-    _set_col_widths(ws2, [5, 36, 12, 14, 12, 12, 10, 10])
+    _set_col_widths(ws2, [5, 36, 12, 12, 12, 10, 10])
     ws2.freeze_panes = "A4"
 
-    # ── 시트 3: 롱런 게임 분석 ──────────────────────────────────────────────
-    ws3 = wb.create_sheet("롱런 게임 분석")
-    ws3["A1"] = f"4주(28일) 이상 상위 50위 유지 게임 — 기준일: {date.today().isoformat()}"
-    ws3["A1"].font = Font(bold=True, size=13, color="B8860B")
-    ws3.append([])
+    # ── 시트 3: 2주+ 롱런 분석 ──────────────────────────────────────────────
+    ws3 = wb.create_sheet("2주+ 롱런 분석")
+    _write_longrun_sheet(
+        ws3,
+        f"2주(14일)+ 상위 50위 유지 게임 — 기준일: {date.today().isoformat()}",
+        longrun_2w_df,
+        LRN2_FILL,
+        LONGRUN_2W,
+    )
 
-    L_COLS = {
-        "name":               "게임명",
-        "days_in_top":        "유지 일수",
-        "avg_rank":           "평균 순위",
-        "best_rank":          "최고 순위",
-        "avg_ccu":            "평균 동접",
-        "latest_ccu":         "최근 동접",
-        "avg_review_score":   "평균 긍정리뷰(%)",
-        "latest_review_score":"최근 긍정리뷰(%)",
-        "total_reviews":      "총 리뷰수",
-        "latest_price":       "현재 가격(₩)",
-        "max_discount":       "최대 할인율(%)",
-        "first_seen":         "첫 관측일",
-        "last_seen":          "최근 관측일",
-    }
-
-    ws3.append(list(L_COLS.values()))
-    _style_header(ws3, 3, len(L_COLS))
-
-    if not longrun_df.empty:
-        for ri, row in enumerate(longrun_df.itertuples(index=False), 4):
-            for ci, k in enumerate(L_COLS.keys(), 1):
-                ws3.cell(ri, ci, value=getattr(row, k, None))
-            for ci in range(1, len(L_COLS) + 1):
-                ws3.cell(ri, ci).fill = LRN_FILL
-    else:
-        ws3["A4"] = (
-            f"아직 {LONGRUN_DAYS}일 분량의 데이터가 쌓이지 않았습니다. "
-            "매일 자동 수집이 진행되면 이 시트가 채워집니다."
-        )
-        ws3["A4"].font = Font(italic=True, color="888888")
-
-    _set_col_widths(ws3, [36, 10, 10, 10, 12, 12, 16, 16, 12, 14, 14, 14, 14])
-    ws3.freeze_panes = "A4"
+    # ── 시트 4: 4주+ 롱런 분석 ──────────────────────────────────────────────
+    ws4 = wb.create_sheet("4주+ 롱런 분석")
+    _write_longrun_sheet(
+        ws4,
+        f"4주(28일)+ 상위 50위 유지 게임 — 기준일: {date.today().isoformat()}",
+        longrun_4w_df,
+        LRN4_FILL,
+        LONGRUN_4W,
+    )
 
     wb.save(EXCEL_PATH)
     print(f"✔ Excel 저장: {EXCEL_PATH}")
@@ -294,18 +313,19 @@ def main():
     print(f"  Steam 차트 추적기  |  {today_str}")
     print(f"{'='*55}")
 
-    today_df   = collect_today_data()
-    existing   = load_existing(EXCEL_PATH)
+    today_df = collect_today_data()
+    existing = load_existing(EXCEL_PATH)
 
-    # 오늘 데이터 중복 방지 후 병합
     if not existing.empty:
         existing = existing[existing["date"] != today_str]
     all_df = pd.concat([existing, today_df], ignore_index=True) if not existing.empty else today_df
 
-    longrun_df = analyze_longrun(all_df.copy())
-    print(f"\n▶ 롱런 게임 ({LONGRUN_DAYS}일+): {len(longrun_df)}개")
+    longrun_2w = analyze_longrun(all_df.copy(), LONGRUN_2W)
+    longrun_4w = analyze_longrun(all_df.copy(), LONGRUN_4W)
+    print(f"\n▶ 2주+ 롱런 게임: {len(longrun_2w)}개")
+    print(f"▶ 4주+ 롱런 게임: {len(longrun_4w)}개")
 
-    build_excel(all_df, today_df, longrun_df)
+    build_excel(all_df, today_df, longrun_2w, longrun_4w)
     print("  완료!\n")
 
 
