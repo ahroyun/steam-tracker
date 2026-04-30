@@ -63,26 +63,28 @@ def fetch_steamspy_top100():
     return games[:TOP_N]
 
 
-def fetch_steam_price(appid):
-    """Steam Store API: 가격 및 할인율"""
+def fetch_steam_details(appid):
+    """Steam Store API: 공식 게임명, 가격 및 할인율"""
     url = (
         f"https://store.steampowered.com/api/appdetails/"
-        f"?appids={appid}&cc=kr&filters=price_overview"
+        f"?appids={appid}&cc=kr&filters=basic,price_overview"
     )
     try:
         r = requests.get(url, timeout=10)
         d = r.json()
         app = d.get(str(appid), {})
         if app.get("success") and app.get("data"):
-            p = app["data"].get("price_overview", {})
+            data = app["data"]
+            p = data.get("price_overview", {})
             return {
+                "steam_name":         data.get("name"),          # Steam 공식 이름
                 "price_krw":          p.get("final", 0) // 100,
                 "discount_pct":       p.get("discount_percent", 0),
                 "original_price_krw": p.get("initial", 0) // 100,
             }
     except Exception:
         pass
-    return {"price_krw": None, "discount_pct": 0, "original_price_krw": None}
+    return {"steam_name": None, "price_krw": None, "discount_pct": 0, "original_price_krw": None}
 
 
 def collect_today_data():
@@ -94,21 +96,23 @@ def collect_today_data():
     rows = []
     for i, g in enumerate(games, 1):
         print(f"  [{i:3d}/{len(games)}] {g['name'][:40]}")
-        price = fetch_steam_price(g["appid"])
+        details = fetch_steam_details(g["appid"])
+        # Steam Store API 공식 이름 우선, 없으면 SteamSpy 이름 사용
+        name = details["steam_name"] or g["name"]
         time.sleep(0.4)
 
         rows.append({
             "date":               today_str,
             "rank":               g["rank"],
             "appid":              g["appid"],
-            "name":               g["name"],
+            "name":               name,
             "ccu":                g["ccu"],
             "review_score_pct":   g["review_score_pct"],
             "total_reviews":      g["total_reviews"],
             "positive_reviews":   g["positive_reviews"],
-            "price_krw":          price["price_krw"],
-            "discount_pct":       price["discount_pct"],
-            "original_price_krw": price["original_price_krw"],
+            "price_krw":          details["price_krw"],
+            "discount_pct":       details["discount_pct"],
+            "original_price_krw": details["original_price_krw"],
         })
 
     return pd.DataFrame(rows)
