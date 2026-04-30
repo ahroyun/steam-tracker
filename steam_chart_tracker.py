@@ -64,10 +64,10 @@ def fetch_steamspy_top100():
 
 
 def fetch_steam_details(appid):
-    """Steam Store API: 공식 게임명, 가격 및 할인율"""
+    """Steam Store API: 공식 게임명, 장르, 가격 및 할인율"""
     url = (
         f"https://store.steampowered.com/api/appdetails/"
-        f"?appids={appid}&cc=kr&filters=basic,price_overview"
+        f"?appids={appid}&cc=kr&filters=basic,genres,price_overview"
     )
     try:
         r = requests.get(url, timeout=10)
@@ -76,15 +76,18 @@ def fetch_steam_details(appid):
         if app.get("success") and app.get("data"):
             data = app["data"]
             p = data.get("price_overview", {})
+            genres = data.get("genres", [])
+            genre_str = ", ".join(g["description"] for g in genres) if genres else None
             return {
-                "steam_name":         data.get("name"),          # Steam 공식 이름
+                "steam_name":         data.get("name"),
+                "genres":             genre_str,
                 "price_krw":          p.get("final", 0) // 100,
                 "discount_pct":       p.get("discount_percent", 0),
                 "original_price_krw": p.get("initial", 0) // 100,
             }
     except Exception:
         pass
-    return {"steam_name": None, "price_krw": None, "discount_pct": 0, "original_price_krw": None}
+    return {"steam_name": None, "genres": None, "price_krw": None, "discount_pct": 0, "original_price_krw": None}
 
 
 def collect_today_data():
@@ -106,6 +109,7 @@ def collect_today_data():
             "rank":               g["rank"],
             "appid":              g["appid"],
             "name":               name,
+            "genres":             details["genres"],
             "ccu":                g["ccu"],
             "review_score_pct":   g["review_score_pct"],
             "total_reviews":      g["total_reviews"],
@@ -233,6 +237,7 @@ def build_excel(all_df, today_df, longrun_1w_df, longrun_2w_df, longrun_4w_df):
         "rank":               "순위",
         "appid":              "AppID",
         "name":               "게임명",
+        "genres":             "장르",
         "ccu":                "동시접속자",
         "review_score_pct":   "긍정리뷰(%)",
         "total_reviews":      "총 리뷰수",
@@ -252,7 +257,7 @@ def build_excel(all_df, today_df, longrun_1w_df, longrun_2w_df, longrun_4w_df):
             for ci in range(1, len(keys) + 1):
                 ws1.cell(ri, ci).fill = ALT_FILL
 
-    _set_col_widths(ws1, [12, 5, 10, 36, 12, 12, 12, 12, 10, 10, 10])
+    _set_col_widths(ws1, [12, 5, 10, 36, 24, 12, 12, 12, 12, 10, 10, 10])
     ws1.freeze_panes = "A2"
 
     # ── 시트 2: 오늘의 차트 ─────────────────────────────────────────────────
@@ -261,8 +266,8 @@ def build_excel(all_df, today_df, longrun_1w_df, longrun_2w_df, longrun_4w_df):
     ws2["A1"].font = Font(bold=True, size=13, color="1F4E79")
     ws2.append([])
 
-    T_COLS = ["순위", "게임명", "동시접속자", "긍정리뷰(%)", "총 리뷰수", "가격(₩)", "할인율(%)"]
-    T_KEYS = ["rank", "name", "ccu", "review_score_pct", "total_reviews", "price_krw", "discount_pct"]
+    T_COLS = ["순위", "게임명", "장르", "동시접속자", "긍정리뷰(%)", "총 리뷰수", "가격(₩)", "할인율(%)"]
+    T_KEYS = ["rank", "name", "genres", "ccu", "review_score_pct", "total_reviews", "price_krw", "discount_pct"]
     ws2.append(T_COLS)
     _style_header(ws2, 3, len(T_COLS))
 
@@ -275,7 +280,7 @@ def build_excel(all_df, today_df, longrun_1w_df, longrun_2w_df, longrun_4w_df):
             for ci in range(1, len(T_KEYS) + 1):
                 ws2.cell(ri, ci).fill = base_fill
 
-    _set_col_widths(ws2, [5, 36, 12, 12, 12, 10, 10])
+    _set_col_widths(ws2, [5, 36, 24, 12, 12, 12, 10, 10])
     ws2.freeze_panes = "A4"
 
     # ── 시트 3: 1주+ 롱런 분석 ──────────────────────────────────────────────
@@ -323,7 +328,7 @@ def write_json(today_df, longrun_1w_df, longrun_2w_df, longrun_4w_df):
 
     data = {
         "updated":     date.today().isoformat(),
-        "today_chart": to_records(today_df[["rank","appid","name","ccu","review_score_pct","total_reviews","price_krw","discount_pct"]]),
+        "today_chart": to_records(today_df[["rank","appid","name","genres","ccu","review_score_pct","total_reviews","price_krw","discount_pct"]]),
         "longrun_1w":  to_records(longrun_1w_df),
         "longrun_2w":  to_records(longrun_2w_df),
         "longrun_4w":  to_records(longrun_4w_df),
