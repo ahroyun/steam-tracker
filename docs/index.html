@@ -17,6 +17,8 @@
     --gold: #f5c518;
     --gold-bg: #2e2600;
     --red: #c94040;
+    --mint: #4ab89a;
+    --mint-bg: #0d2a22;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; font-size: 14px; }
@@ -110,6 +112,7 @@
   }
   .days-4w { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold); }
   .days-2w { background: #1a2a3a; color: var(--accent); border: 1px solid var(--accent); }
+  .days-1w { background: var(--mint-bg); color: var(--mint); border: 1px solid var(--mint); }
 
   /* ── Empty state ── */
   .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
@@ -136,6 +139,7 @@
 
 <div class="tabs">
   <div class="tab active" onclick="switchTab('today')">오늘의 차트</div>
+  <div class="tab" onclick="switchTab('w1')">1주+ 롱런</div>
   <div class="tab" onclick="switchTab('w2')">2주+ 롱런</div>
   <div class="tab" onclick="switchTab('w4')">4주+ 롱런 🏆</div>
 </div>
@@ -151,7 +155,7 @@
     </div>
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--green-bg);border:1px solid var(--green)"></div>할인 중</div>
-      <div class="legend-item"><span style="color:var(--score-high,#66c94a)">●</span> 리뷰 95%+</div>
+      <div class="legend-item"><span style="color:#66c94a">●</span> 리뷰 95%+</div>
     </div>
     <div class="table-wrap">
       <table id="table-today">
@@ -168,6 +172,37 @@
         </thead>
         <tbody id="tbody-today"></tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- 1주+ 롱런 -->
+  <div class="panel" id="panel-w1">
+    <div class="toolbar">
+      <input class="search-box" id="search-w1" placeholder="🔍 게임명 검색..." oninput="filterTable('w1')" />
+      <span class="count-label" id="count-w1"></span>
+    </div>
+    <div class="table-wrap">
+      <table id="table-w1">
+        <thead>
+          <tr>
+            <th onclick="sortTable('w1',0)">게임명</th>
+            <th onclick="sortTable('w1',1)">유지 일수</th>
+            <th onclick="sortTable('w1',2)">평균 순위</th>
+            <th onclick="sortTable('w1',3)">최고 순위</th>
+            <th onclick="sortTable('w1',4)">평균 동접</th>
+            <th onclick="sortTable('w1',5)">최근 동접</th>
+            <th onclick="sortTable('w1',6)">긍정리뷰</th>
+            <th onclick="sortTable('w1',7)">현재 가격</th>
+            <th onclick="sortTable('w1',8)">최대 할인</th>
+            <th onclick="sortTable('w1',9)">첫 관측일</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-w1"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="empty-w1" style="display:none">
+      <div style="font-size:40px">📊</div>
+      <p>아직 7일 분량의 데이터가 쌓이지 않았습니다.<br>매일 자동 수집이 진행되면 여기에 표시됩니다.</p>
     </div>
   </div>
 
@@ -237,7 +272,7 @@
 
 <script>
 let DATA = null;
-const sortState = { today: {col:-1,asc:true}, w2: {col:-1,asc:true}, w4: {col:-1,asc:true} };
+const sortState = { today: {col:-1,asc:true}, w1: {col:-1,asc:true}, w2: {col:-1,asc:true}, w4: {col:-1,asc:true} };
 
 // ── 숫자 포맷 ──────────────────────────────────────────────────────────────
 const fmt  = n => n == null ? '-' : Number(n).toLocaleString('ko-KR');
@@ -252,7 +287,8 @@ function scoreClass(v) {
 
 // ── 탭 전환 ───────────────────────────────────────────────────────────────
 function switchTab(id) {
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['today','w2','w4'][i]===id));
+  const ids = ['today','w1','w2','w4'];
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ids[i]===id));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById(`panel-${id}`).classList.add('active');
 }
@@ -284,9 +320,9 @@ function renderToday(rows) {
   const avgScore = (rows.reduce((s,g) => s + (g.review_score_pct||0), 0) / rows.length).toFixed(1);
   document.getElementById('stats-today').innerHTML = `
     <div class="stat-card"><div class="stat-label">🏅 1위 게임</div><div class="stat-value" style="font-size:15px">${topGame?.name || '-'}</div><div class="stat-sub">동접 ${fmt(topGame?.ccu)}</div></div>
-    <div class="stat-card"><div class="stat-label">👥 총 추적 게임</div><div class="stat-value">${rows.length}</div><div class="stat-sub">상위 50위 기준</div></div>
+    <div class="stat-card"><div class="stat-label">👥 총 추적 게임</div><div class="stat-value">${rows.length}</div><div class="stat-sub">상위 100위 기준</div></div>
     <div class="stat-card"><div class="stat-label">🏷️ 할인 중인 게임</div><div class="stat-value">${onSale}</div><div class="stat-sub">오늘 기준</div></div>
-    <div class="stat-card"><div class="stat-label">⭐ 평균 긍정리뷰</div><div class="stat-value">${avgScore}%</div><div class="stat-sub">상위 50개 평균</div></div>
+    <div class="stat-card"><div class="stat-label">⭐ 평균 긍정리뷰</div><div class="stat-value">${avgScore}%</div><div class="stat-sub">상위 100개 평균</div></div>
   `;
   document.getElementById('count-today').textContent = `${rows.length}개 게임`;
 }
@@ -301,7 +337,7 @@ function renderLongrun(key, rows, minDays) {
     return;
   }
   tableEl.style.display = ''; emptyEl.style.display = 'none';
-  const badgeCls = minDays >= 28 ? 'days-4w' : 'days-2w';
+  const badgeCls = minDays >= 28 ? 'days-4w' : minDays >= 14 ? 'days-2w' : 'days-1w';
   const tbody = document.getElementById(`tbody-${key}`);
   tbody.innerHTML = rows.map(g => {
     const sCls = scoreClass(g.avg_review_score);
@@ -367,6 +403,7 @@ fetch('data.json?_=' + Date.now())
     DATA = data;
     document.getElementById('updated-label').textContent = `마지막 업데이트: ${data.updated}`;
     renderToday(data.today_chart || []);
+    renderLongrun('w1', data.longrun_1w || [], 7);
     renderLongrun('w2', data.longrun_2w || [], 14);
     renderLongrun('w4', data.longrun_4w || [], 28);
   })
