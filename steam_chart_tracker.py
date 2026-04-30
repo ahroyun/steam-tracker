@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Steam 인기 차트 자동 추적기
-매일 실행하여 상위 50개 게임의 지표를 Excel에 누적 저장합니다.
+매일 실행하여 상위 100개 게임의 지표를 Excel에 누적 저장합니다.
 
 추적 지표:
   - 동시 접속자 수 (CCU)
@@ -9,8 +9,9 @@ Steam 인기 차트 자동 추적기
   - 현재 가격 및 할인율
 
 롱런 기준:
-  - 2주(14일) 이상 상위 50위 유지
-  - 4주(28일) 이상 상위 50위 유지
+  - 1주(7일) 이상 상위 100위 유지
+  - 2주(14일) 이상 상위 100위 유지
+  - 4주(28일) 이상 상위 100위 유지
 """
 
 import requests
@@ -27,7 +28,8 @@ import json
 SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
 EXCEL_PATH   = os.path.join(SCRIPT_DIR, "steam_chart_tracker.xlsx")
 JSON_PATH    = os.path.join(SCRIPT_DIR, "docs", "data.json")
-TOP_N        = 50   # 상위 50개 게임 추적
+TOP_N        = 100  # 상위 100개 게임 추적
+LONGRUN_1W   = 7    # 1주(7일) 이상
 LONGRUN_2W   = 14   # 2주(14일) 이상
 LONGRUN_4W   = 28   # 4주(28일) 이상
 
@@ -85,13 +87,13 @@ def fetch_steam_price(appid):
 
 def collect_today_data():
     """오늘의 차트 전체 수집"""
-    print("▶ SteamSpy 상위 50 게임 수집 중...")
+    print("▶ SteamSpy 상위 100 게임 수집 중...")
     games = fetch_steamspy_top100()
 
     today_str = date.today().isoformat()
     rows = []
     for i, g in enumerate(games, 1):
-        print(f"  [{i:2d}/{len(games)}] {g['name'][:40]}")
+        print(f"  [{i:3d}/{len(games)}] {g['name'][:40]}")
         price = fetch_steam_price(g["appid"])
         time.sleep(0.4)
 
@@ -115,7 +117,7 @@ def collect_today_data():
 # ── 분석 ──────────────────────────────────────────────────────────────────────
 
 def analyze_longrun(df, min_days):
-    """min_days 이상 상위 50위를 유지한 게임 집계"""
+    """min_days 이상 상위 100위를 유지한 게임 집계"""
     if df.empty:
         return pd.DataFrame()
 
@@ -155,6 +157,7 @@ HDR_FILL  = PatternFill("solid", start_color="1F4E79")  # 진한 남색
 HDR_FONT  = Font(bold=True, color="FFFFFF", size=10)
 ALT_FILL  = PatternFill("solid", start_color="EBF3FB")  # 연한 파랑
 DIS_FILL  = PatternFill("solid", start_color="C6EFCE")  # 연한 초록 (할인)
+LRN1_FILL = PatternFill("solid", start_color="E8F5E9")  # 연한 민트 (1주+)
 LRN2_FILL = PatternFill("solid", start_color="FFF3CD")  # 연한 노랑 (2주+)
 LRN4_FILL = PatternFill("solid", start_color="FFD700")  # 골드 (4주+)
 CENTER    = Alignment(horizontal="center", vertical="center")
@@ -214,7 +217,7 @@ def _write_longrun_sheet(ws, title, longrun_df, row_fill, min_days):
     ws.freeze_panes = "A4"
 
 
-def build_excel(all_df, today_df, longrun_2w_df, longrun_4w_df):
+def build_excel(all_df, today_df, longrun_1w_df, longrun_2w_df, longrun_4w_df):
     wb = Workbook()
 
     # ── 시트 1: 일별 스냅샷 ─────────────────────────────────────────────────
@@ -271,21 +274,31 @@ def build_excel(all_df, today_df, longrun_2w_df, longrun_4w_df):
     _set_col_widths(ws2, [5, 36, 12, 12, 12, 10, 10])
     ws2.freeze_panes = "A4"
 
-    # ── 시트 3: 2주+ 롱런 분석 ──────────────────────────────────────────────
-    ws3 = wb.create_sheet("2주+ 롱런 분석")
+    # ── 시트 3: 1주+ 롱런 분석 ──────────────────────────────────────────────
+    ws3 = wb.create_sheet("1주+ 롱런 분석")
     _write_longrun_sheet(
         ws3,
-        f"2주(14일)+ 상위 50위 유지 게임 — 기준일: {date.today().isoformat()}",
+        f"1주(7일)+ 상위 100위 유지 게임 — 기준일: {date.today().isoformat()}",
+        longrun_1w_df,
+        LRN1_FILL,
+        LONGRUN_1W,
+    )
+
+    # ── 시트 4: 2주+ 롱런 분석 ──────────────────────────────────────────────
+    ws4 = wb.create_sheet("2주+ 롱런 분석")
+    _write_longrun_sheet(
+        ws4,
+        f"2주(14일)+ 상위 100위 유지 게임 — 기준일: {date.today().isoformat()}",
         longrun_2w_df,
         LRN2_FILL,
         LONGRUN_2W,
     )
 
-    # ── 시트 4: 4주+ 롱런 분석 ──────────────────────────────────────────────
-    ws4 = wb.create_sheet("4주+ 롱런 분석")
+    # ── 시트 5: 4주+ 롱런 분석 ──────────────────────────────────────────────
+    ws5 = wb.create_sheet("4주+ 롱런 분석")
     _write_longrun_sheet(
-        ws4,
-        f"4주(28일)+ 상위 50위 유지 게임 — 기준일: {date.today().isoformat()}",
+        ws5,
+        f"4주(28일)+ 상위 100위 유지 게임 — 기준일: {date.today().isoformat()}",
         longrun_4w_df,
         LRN4_FILL,
         LONGRUN_4W,
@@ -297,7 +310,7 @@ def build_excel(all_df, today_df, longrun_2w_df, longrun_4w_df):
 
 # ── JSON 출력 (GitHub Pages용) ───────────────────────────────────────────────
 
-def write_json(today_df, longrun_2w_df, longrun_4w_df):
+def write_json(today_df, longrun_1w_df, longrun_2w_df, longrun_4w_df):
     def to_records(df):
         if df.empty:
             return []
@@ -305,10 +318,11 @@ def write_json(today_df, longrun_2w_df, longrun_4w_df):
         return json.loads(df.to_json(orient="records", force_ascii=False))
 
     data = {
-        "updated":    date.today().isoformat(),
+        "updated":     date.today().isoformat(),
         "today_chart": to_records(today_df[["rank","appid","name","ccu","review_score_pct","total_reviews","price_krw","discount_pct"]]),
-        "longrun_2w": to_records(longrun_2w_df),
-        "longrun_4w": to_records(longrun_4w_df),
+        "longrun_1w":  to_records(longrun_1w_df),
+        "longrun_2w":  to_records(longrun_2w_df),
+        "longrun_4w":  to_records(longrun_4w_df),
     }
     os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
     with open(JSON_PATH, "w", encoding="utf-8") as f:
@@ -343,13 +357,15 @@ def main():
         existing = existing[existing["date"] != today_str]
     all_df = pd.concat([existing, today_df], ignore_index=True) if not existing.empty else today_df
 
+    longrun_1w = analyze_longrun(all_df.copy(), LONGRUN_1W)
     longrun_2w = analyze_longrun(all_df.copy(), LONGRUN_2W)
     longrun_4w = analyze_longrun(all_df.copy(), LONGRUN_4W)
-    print(f"\n▶ 2주+ 롱런 게임: {len(longrun_2w)}개")
+    print(f"\n▶ 1주+ 롱런 게임: {len(longrun_1w)}개")
+    print(f"▶ 2주+ 롱런 게임: {len(longrun_2w)}개")
     print(f"▶ 4주+ 롱런 게임: {len(longrun_4w)}개")
 
-    build_excel(all_df, today_df, longrun_2w, longrun_4w)
-    write_json(today_df, longrun_2w, longrun_4w)
+    build_excel(all_df, today_df, longrun_1w, longrun_2w, longrun_4w)
+    write_json(today_df, longrun_1w, longrun_2w, longrun_4w)
     print("  완료!\n")
 
 
