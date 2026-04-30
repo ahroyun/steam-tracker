@@ -500,8 +500,509 @@
       "total_reviews": 324927,
       "price_krw": null,
       "discount_pct": 0
+    },
+    {
+      "rank": 51,
+      "appid": 320,
+      "name": "Half-Life 2: Deathmatch",
+      "ccu": 159,
+      "review_score_pct": 90.7,
+      "total_reviews": 14296,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 52,
+      "appid": 70,
+      "name": "Half-Life",
+      "ccu": 634,
+      "review_score_pct": 96.5,
+      "total_reviews": 148221,
+      "price_krw": 10500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 53,
+      "appid": 582010,
+      "name": "Monster Hunter: World",
+      "ccu": 11923,
+      "review_score_pct": 88.0,
+      "total_reviews": 493390,
+      "price_krw": 36800.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 54,
+      "appid": 227940,
+      "name": "Heroes & Generals",
+      "ccu": 0,
+      "review_score_pct": 67.6,
+      "total_reviews": 142763,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 55,
+      "appid": 252950,
+      "name": "Rocket League",
+      "ccu": 21106,
+      "review_score_pct": 87.4,
+      "total_reviews": 583220,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 56,
+      "appid": 108600,
+      "name": "Project Zomboid",
+      "ccu": 22864,
+      "review_score_pct": 94.2,
+      "total_reviews": 377063,
+      "price_krw": 21500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 57,
+      "appid": 1966720,
+      "name": "Lethal Company",
+      "ccu": 6199,
+      "review_score_pct": 97.2,
+      "total_reviews": 487160,
+      "price_krw": 11000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 58,
+      "appid": 1174180,
+      "name": "Red Dead Redemption 2",
+      "ccu": 29885,
+      "review_score_pct": 92.2,
+      "total_reviews": 733542,
+      "price_krw": 73000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 59,
+      "appid": 1517290,
+      "name": "Battlefield 2042",
+      "ccu": 2774,
+      "review_score_pct": 46.7,
+      "total_reviews": 297774,
+      "price_krw": 3300.0,
+      "discount_pct": 95
+    },
+    {
+      "rank": 60,
+      "appid": 1240440,
+      "name": "Halo Infinite",
+      "ccu": 2275,
+      "review_score_pct": 69.7,
+      "total_reviews": 177041,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 61,
+      "appid": 648800,
+      "name": "Raft",
+      "ccu": 4701,
+      "review_score_pct": 93.3,
+      "total_reviews": 346359,
+      "price_krw": 21000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 62,
+      "appid": 386360,
+      "name": "SMITE",
+      "ccu": 1853,
+      "review_score_pct": 78.8,
+      "total_reviews": 119796,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 63,
+      "appid": 444200,
+      "name": "World of Tanks Blitz",
+      "ccu": 5707,
+      "review_score_pct": 78.6,
+      "total_reviews": 148161,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 64,
+      "appid": 10,
+      "name": "Counter-Strike",
+      "ccu": 7323,
+      "review_score_pct": 97.4,
+      "total_reviews": 250245,
+      "price_krw": 10500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 65,
+      "appid": 240,
+      "name": "Counter-Strike: Source",
+      "ccu": 6187,
+      "review_score_pct": 96.3,
+      "total_reviews": 182234,
+      "price_krw": 11000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 66,
+      "appid": 3164500,
+      "name": "Schedule I",
+      "ccu": 22757,
+      "review_score_pct": 98.4,
+      "total_reviews": 204041,
+      "price_krw": 21500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 67,
+      "appid": 755790,
+      "name": "Ring of Elysium",
+      "ccu": 0,
+      "review_score_pct": 74.5,
+      "total_reviews": 99837,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 68,
+      "appid": 400,
+      "name": "Portal",
+      "ccu": 638,
+      "review_score_pct": 98.5,
+      "total_reviews": 177741,
+      "price_krw": 11000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 69,
+      "appid": 1222670,
+      "name": "The Sims 4",
+      "ccu": 25276,
+      "review_score_pct": 87.3,
+      "total_reviews": 170727,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 70,
+      "appid": 550650,
+      "name": "Black Squad",
+      "ccu": 212,
+      "review_score_pct": 75.9,
+      "total_reviews": 81714,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 71,
+      "appid": 322330,
+      "name": "Don't Starve Together",
+      "ccu": 30542,
+      "review_score_pct": 95.3,
+      "total_reviews": 499061,
+      "price_krw": 15500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 72,
+      "appid": 239140,
+      "name": "Dying Light",
+      "ccu": 4953,
+      "review_score_pct": 95.2,
+      "total_reviews": 457632,
+      "price_krw": 27400.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 73,
+      "appid": 477160,
+      "name": "Human Fall Flat",
+      "ccu": 950,
+      "review_score_pct": 94.7,
+      "total_reviews": 213640,
+      "price_krw": 20500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 74,
+      "appid": 251570,
+      "name": "7 Days to Die",
+      "ccu": 17045,
+      "review_score_pct": 88.6,
+      "total_reviews": 370046,
+      "price_krw": 47000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 75,
+      "appid": 100,
+      "name": "Counter-Strike: Condition Zero",
+      "ccu": 83,
+      "review_score_pct": 89.8,
+      "total_reviews": 14977,
+      "price_krw": 10500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 76,
+      "appid": 1665460,
+      "name": "eFootball",
+      "ccu": 13404,
+      "review_score_pct": 47.7,
+      "total_reviews": 92333,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 77,
+      "appid": 417910,
+      "name": "Street Warriors Online",
+      "ccu": 1,
+      "review_score_pct": 57.6,
+      "total_reviews": 1634,
+      "price_krw": 2200.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 78,
+      "appid": 433850,
+      "name": "Z1 Battle Royale",
+      "ccu": 1010,
+      "review_score_pct": 55.7,
+      "total_reviews": 204013,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 79,
+      "appid": 594650,
+      "name": "Hunt: Showdown 1896",
+      "ccu": 6300,
+      "review_score_pct": 73.0,
+      "total_reviews": 248220,
+      "price_krw": 36700.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 80,
+      "appid": 814380,
+      "name": "Sekiro: Shadows Die Twice - GOTY Edition",
+      "ccu": 6767,
+      "review_score_pct": 95.3,
+      "total_reviews": 322234,
+      "price_krw": 75000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 81,
+      "appid": 1116170,
+      "name": "CyberCorp",
+      "ccu": 3,
+      "review_score_pct": 82.6,
+      "total_reviews": 322,
+      "price_krw": 16500.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 82,
+      "appid": 220,
+      "name": "Half-Life 2",
+      "ccu": 1555,
+      "review_score_pct": 97.6,
+      "total_reviews": 245627,
+      "price_krw": 11000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 83,
+      "appid": 107410,
+      "name": "Arma 3",
+      "ccu": 7181,
+      "review_score_pct": 90.4,
+      "total_reviews": 283264,
+      "price_krw": 36000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 84,
+      "appid": 1326470,
+      "name": "Sons Of The Forest",
+      "ccu": 4450,
+      "review_score_pct": 87.8,
+      "total_reviews": 253546,
+      "price_krw": 32000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 85,
+      "appid": 219990,
+      "name": "Grim Dawn",
+      "ccu": 2376,
+      "review_score_pct": 93.7,
+      "total_reviews": 99730,
+      "price_krw": 27000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 86,
+      "appid": 255710,
+      "name": "Cities: Skylines",
+      "ccu": 8842,
+      "review_score_pct": 93.0,
+      "total_reviews": 275770,
+      "price_krw": 33000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 87,
+      "appid": 261550,
+      "name": "Mount & Blade II: Bannerlord",
+      "ccu": 14477,
+      "review_score_pct": 87.9,
+      "total_reviews": 264391,
+      "price_krw": 60000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 88,
+      "appid": 8930,
+      "name": "Sid Meier's Civilization V",
+      "ccu": 12206,
+      "review_score_pct": 95.8,
+      "total_reviews": 204265,
+      "price_krw": 32000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 89,
+      "appid": 304050,
+      "name": "Trove",
+      "ccu": 758,
+      "review_score_pct": 80.2,
+      "total_reviews": 92370,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 90,
+      "appid": 289070,
+      "name": "Sid Meier’s Civilization VI",
+      "ccu": 25420,
+      "review_score_pct": 86.9,
+      "total_reviews": 349920,
+      "price_krw": 65000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 91,
+      "appid": 377160,
+      "name": "Fallout 4",
+      "ccu": 11179,
+      "review_score_pct": 83.1,
+      "total_reviews": 392287,
+      "price_krw": 22000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 92,
+      "appid": 532210,
+      "name": "Life is Strange 2",
+      "ccu": 153,
+      "review_score_pct": 86.3,
+      "total_reviews": 36634,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 93,
+      "appid": 2186680,
+      "name": "Warhammer 40,000: Rogue Trader",
+      "ccu": 3582,
+      "review_score_pct": 85.6,
+      "total_reviews": 30805,
+      "price_krw": 53000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 94,
+      "appid": 1238810,
+      "name": "Battlefield V",
+      "ccu": 6327,
+      "review_score_pct": 70.9,
+      "total_reviews": 250288,
+      "price_krw": 2750.0,
+      "discount_pct": 95
+    },
+    {
+      "rank": 95,
+      "appid": 3241660,
+      "name": "R.E.P.O.",
+      "ccu": 32349,
+      "review_score_pct": 96.5,
+      "total_reviews": 185642,
+      "price_krw": 7490.0,
+      "discount_pct": 30
+    },
+    {
+      "rank": 96,
+      "appid": 221100,
+      "name": "DayZ",
+      "ccu": 37066,
+      "review_score_pct": 76.8,
+      "total_reviews": 430252,
+      "price_krw": 59000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 97,
+      "appid": 526870,
+      "name": "Satisfactory",
+      "ccu": 12596,
+      "review_score_pct": 97.2,
+      "total_reviews": 232064,
+      "price_krw": 29400.0,
+      "discount_pct": 30
+    },
+    {
+      "rank": 98,
+      "appid": 1089350,
+      "name": "NBA 2K20",
+      "ccu": 221,
+      "review_score_pct": 49.9,
+      "total_reviews": 60673,
+      "price_krw": null,
+      "discount_pct": 0
+    },
+    {
+      "rank": 99,
+      "appid": 632360,
+      "name": "Risk of Rain 2",
+      "ccu": 7902,
+      "review_score_pct": 93.5,
+      "total_reviews": 313577,
+      "price_krw": 26000.0,
+      "discount_pct": 0
+    },
+    {
+      "rank": 100,
+      "appid": 1811260,
+      "name": "EA SPORTS FIFA 23",
+      "ccu": 1280,
+      "review_score_pct": 56.9,
+      "total_reviews": 151419,
+      "price_krw": null,
+      "discount_pct": 0
     }
   ],
+  "longrun_1w": [],
   "longrun_2w": [],
   "longrun_4w": []
 }
