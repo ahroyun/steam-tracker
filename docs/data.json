@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-18",
+  "updated": "2026-06-19",
   "today_chart": [
     {
       "rank": 1,
@@ -152,8 +152,8 @@
       "ccu": 12494,
       "review_score_pct": 58.3,
       "total_reviews": 218415,
-      "price_krw": 35620.0,
-      "discount_pct": 58
+      "price_krw": 84800.0,
+      "discount_pct": 0
     },
     {
       "rank": 15,
@@ -416,8 +416,8 @@
       "ccu": 22265,
       "review_score_pct": 84.4,
       "total_reviews": 844921,
-      "price_krw": 66000.0,
-      "discount_pct": 0
+      "price_krw": 19800.0,
+      "discount_pct": 70
     },
     {
       "rank": 39,
@@ -460,8 +460,8 @@
       "ccu": 15893,
       "review_score_pct": 96.1,
       "total_reviews": 835349,
-      "price_krw": 34800.0,
-      "discount_pct": 0
+      "price_krw": 3480.0,
+      "discount_pct": 90
     },
     {
       "rank": 43,
@@ -581,8 +581,8 @@
       "ccu": 11923,
       "review_score_pct": 88.0,
       "total_reviews": 493390,
-      "price_krw": 9570.0,
-      "discount_pct": 74
+      "price_krw": 36800.0,
+      "discount_pct": 0
     },
     {
       "rank": 54,
@@ -647,8 +647,8 @@
       "ccu": 2774,
       "review_score_pct": 46.7,
       "total_reviews": 297774,
-      "price_krw": 66000.0,
-      "discount_pct": 0
+      "price_krw": 3300.0,
+      "discount_pct": 95
     },
     {
       "rank": 60,
@@ -801,8 +801,8 @@
       "ccu": 950,
       "review_score_pct": 94.7,
       "total_reviews": 213640,
-      "price_krw": 20500.0,
-      "discount_pct": 0
+      "price_krw": 6150.0,
+      "discount_pct": 70
     },
     {
       "rank": 74,
@@ -911,8 +911,8 @@
       "ccu": 7181,
       "review_score_pct": 90.4,
       "total_reviews": 283264,
-      "price_krw": 36000.0,
-      "discount_pct": 0
+      "price_krw": 10800.0,
+      "discount_pct": 70
     },
     {
       "rank": 84,
@@ -1032,8 +1032,8 @@
       "ccu": 6327,
       "review_score_pct": 70.9,
       "total_reviews": 250288,
-      "price_krw": 55000.0,
-      "discount_pct": 0
+      "price_krw": 2750.0,
+      "discount_pct": 95
     },
     {
       "rank": 95,
@@ -1054,8 +1054,8 @@
       "ccu": 37066,
       "review_score_pct": 76.8,
       "total_reviews": 430252,
-      "price_krw": 59000.0,
-      "discount_pct": 0
+      "price_krw": 26550.0,
+      "discount_pct": 55
     },
     {
       "rank": 97,
