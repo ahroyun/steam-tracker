@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10",
+  "updated": "2026-07-11",
   "today_chart": [
     {
       "rank": 1,
@@ -38,7 +38,7 @@
       "rank": 4,
       "appid": 1623730,
       "name": "Palworld",
-      "genres": "Action, Adventure, Indie, RPG, Early Access",
+      "genres": "Action, Adventure, Indie, RPG",
       "ccu": 18028,
       "review_score_pct": 94.1,
       "total_reviews": 380709,
