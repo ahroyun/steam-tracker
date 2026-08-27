@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-26",
+  "updated": "2026-08-27",
   "today_chart": [
     {
       "rank": 1,
@@ -471,8 +471,8 @@
       "ccu": 3832,
       "review_score_pct": 91.9,
       "total_reviews": 700785,
-      "price_krw": 5500.0,
-      "discount_pct": 0
+      "price_krw": 3300.0,
+      "discount_pct": 40
     },
     {
       "rank": 44,
@@ -867,8 +867,8 @@
       "ccu": 6300,
       "review_score_pct": 73.0,
       "total_reviews": 248220,
-      "price_krw": 36700.0,
-      "discount_pct": 0
+      "price_krw": 19560.0,
+      "discount_pct": 60
     },
     {
       "rank": 80,
@@ -1054,8 +1054,8 @@
       "ccu": 37066,
       "review_score_pct": 76.8,
       "total_reviews": 430252,
-      "price_krw": 59000.0,
-      "discount_pct": 0
+      "price_krw": 29500.0,
+      "discount_pct": 50
     },
     {
       "rank": 97,
